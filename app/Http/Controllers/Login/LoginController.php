@@ -108,9 +108,9 @@ class LoginController extends Controller
             if(password_verify($upwd,$res->pwd)) {
                 $token = substr(md5(time() . mt_rand(1, 99999)), 10, 10);
 //                echo $token;die;
-                setcookie('uid', $res->uid, time() + 86400, '/', 'shop.com', false, true);
-                setcookie('name', $res->name, time() + 86400, '/', 'shop.com', false, true);
-                setcookie('token', $token, time() + 86400, '/', 'shop.com', false, true);
+                setcookie('uid', $res->uid, time() + 86400, '/', 'tactshan.com', false, true);
+                setcookie('name', $res->name, time() + 86400, '/', 'tactshan.com', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'tactshan.com', false, true);
 //                $request->session()->put('u_token',$token);
 //                $request->session()->put('uid',$res->uid);
 
