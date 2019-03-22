@@ -148,7 +148,7 @@ class LoginController extends Controller
 //                echo $redis_key_web_token;die;
                 $response=[
                     'errno'=>0,
-                    'msg'=>'登陆成功',
+                    'msg'=>'ok',
                     'token'=>$token
                 ];
 
