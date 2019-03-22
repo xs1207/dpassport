@@ -22,3 +22,5 @@ Route::post('/user/login','Login\LoginController@doLogin');
 //注册
 Route::get('/user/register','Login\LoginController@register');
 Route::post('/user/register','Login\LoginController@doRegister');
+
+Route::post('/api/login','Login\LoginController@lgn');

@@ -131,4 +131,39 @@ class LoginController extends Controller
         }
     }
 
+
+    public function lgn(Request $request)
+    {
+        $name=$request->input('name');
+        $pwd=$request->input('pwd');
+
+        $res=UserModel::where(['name'=>$name])->first();
+        if($res){
+            if(password_verify($pwd,$res->pwd)) {
+                $token = substr(md5(time() . mt_rand(1, 99999)), 10, 10);
+                $redis_key_web_token='str:u:token:web:'.$res->uid;
+                Redis::set($redis_key_web_token,$token);
+                Redis::expire($redis_key_web_token,60*60*24*7);
+
+//                echo $redis_key_web_token;die;
+                $response=[
+                    'errno'=>0,
+                    'msg'=>'登陆成功',
+                    'token'=>$token
+                ];
+            }else{
+                $response=[
+                    'errno'=>500,
+                    'msg'=>'登陆失败'
+                ];
+            }
+        }else{
+            $response=[
+                'errno'=>500,
+                'msg'=>'登陆失败'
+            ];
+        }
+        return $response;
+    }
+
 }
