@@ -151,6 +151,8 @@ class LoginController extends Controller
                     'msg'=>'登陆成功',
                     'token'=>$token
                 ];
+
+                return $response;
             }else{
                 $response=[
                     'errno'=>500,
