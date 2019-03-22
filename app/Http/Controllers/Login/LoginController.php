@@ -165,7 +165,7 @@ class LoginController extends Controller
                 'msg'=>'登陆失败'
             ];
         }
-        return json_encode($response);
+        return $response;
     }
 
 }
