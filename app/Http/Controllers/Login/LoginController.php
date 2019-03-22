@@ -67,15 +67,15 @@ class LoginController extends Controller
             if($uid){
                 $token = substr(md5(time() . mt_rand(1,99999)), 10, 10);
 //                echo $token;die;
-                setcookie('uid', $uid, time() + 86400, '/', 'shop.com', false, true);
-                setcookie('name', $name, time() + 86400, '/', 'shop.com', false, true);
-                setcookie('token', $token, time() + 86400, '/', 'shop.com', false, true);
-                $request->session()->put('u_token',$token);
-                $request->session()->put('uid',$uid);
+                setcookie('uid', $uid, time() + 86400, '/', 'tactshan.com', false, true);
+                setcookie('name', $name, time() + 86400, '/', 'tactshan.com', false, true);
+                setcookie('token', $token, time() + 86400, '/', 'tactshan.com', false, true);
+//                $request->session()->put('u_token',$token);
+//                $request->session()->put('uid',$uid);
                 //存到redis
-                $redis_key_web_token='str:u:token:web:'.$uid;
-                Redis::set($redis_key_web_token,$token);
-                Redis::expire($redis_key_web_token,60*60*24*7);
+                $redis_key_web_token='str:u:token:'.$uid;
+                Redis::del($redis_key_web_token);
+                Redis::hset($redis_key_web_token,'web',$token);
                 echo '注册成功,正在跳转';
                 header("Refresh:1;$r");
             }else{
@@ -111,12 +111,12 @@ class LoginController extends Controller
                 setcookie('uid', $res->uid, time() + 86400, '/', 'shop.com', false, true);
                 setcookie('name', $res->name, time() + 86400, '/', 'shop.com', false, true);
                 setcookie('token', $token, time() + 86400, '/', 'shop.com', false, true);
-                $request->session()->put('u_token',$token);
-                $request->session()->put('uid',$res->uid);
+//                $request->session()->put('u_token',$token);
+//                $request->session()->put('uid',$res->uid);
 
-                $redis_key_web_token='str:u:token:web:'.$res->uid;
-                Redis::set($redis_key_web_token,$token);
-                Redis::expire($redis_key_web_token,60*60*24*7);
+                $redis_key_web_token='str:u:token:'.$res->uid;
+                Redis::del($redis_key_web_token);
+                Redis::hSet($redis_key_web_token,'web',$token);
 
 //                echo $redis_key_web_token;die;
                 echo "登陆成功";
@@ -141,9 +141,9 @@ class LoginController extends Controller
         if($res){
             if(password_verify($pwd,$res->pwd)) {
                 $token = substr(md5(time() . mt_rand(1, 99999)), 10, 10);
-                $redis_key_web_token='str:u:token:web:'.$res->uid;
-                Redis::set($redis_key_web_token,$token);
-                Redis::expire($redis_key_web_token,60*60*24*7);
+                $redis_key_web_token='str:u:token:'.$res->uid;
+                Redis::del($redis_key_web_token);
+                Redis::hSet($redis_key_web_token,'app',$token);
 
 //                echo $redis_key_web_token;die;
                 $response=[
