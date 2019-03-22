@@ -173,7 +173,7 @@ class LoginController extends Controller
         setcookie('uid',null,time()-1, '/', 'tactshan.com', false, true);
         setcookie('token',null,time()-1, '/', 'tactshan.com', false, true);
         echo "退出成功";
-        header('refresh:1;url=dkl.tactshan.com');
+        header('refresh:1;url=https://dkl.tactshan.com');
     }
 
 }
