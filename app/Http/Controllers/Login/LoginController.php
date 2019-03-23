@@ -149,7 +149,9 @@ class LoginController extends Controller
                 $response=[
                     'errno'=>0,
                     'msg'=>'登陆成功',
-                    'token'=>$token
+                    'token'=>$token,
+                    'user'=>$name,
+                    'uid'=>$res->uid
                 ];
 
                 return $response;
