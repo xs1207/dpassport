@@ -150,7 +150,7 @@ class LoginController extends Controller
                     'errno'=>0,
                     'msg'=>'登陆成功',
                     'token'=>$token,
-                    'user'=>$name,
+                    'uname'=>$name,
                     'uid'=>$res->uid
                 ];
 
